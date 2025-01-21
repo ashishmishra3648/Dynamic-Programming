@@ -54,6 +54,8 @@ int f(int i, int j, int** obstacleGrid, int** dp) {
     return dp[i][j];
 }
 
+//Tabulation Method
+
 int uniquePathsWithObstacles(int** obstacleGrid, int obstacleGridSize, int* obstacleGridColSize) {
     int m = obstacleGridSize;
     int n = *obstacleGridColSize;
