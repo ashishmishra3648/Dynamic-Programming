@@ -1,0 +1,44 @@
+Given a triangle array, return the minimum path sum from top to bottom.
+
+For each step, you may move to an adjacent number of the row below. More formally, if you are on index i on the current row, you may move to either index i or index i + 1 on the next row.
+
+ 
+
+Example 1:
+
+Input: triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
+Output: 11
+Explanation: The triangle looks like:
+   2
+  3 4
+ 6 5 7
+4 1 8 3
+The minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above).
+Example 2:
+
+Input: triangle = [[-10]]
+Output: -10
+
+
+//Memoization Method :
+
+int f(int i, int j, int** triangle, int triangleSize, int** dp){
+    if(i==triangleSize-1) return triangle[i][j];
+    if(dp[i][j]!= -1) return dp[i][j];
+    int down = triangle[i][j] + f(i+1, j, triangle, triangleSize, dp);
+    int diagonal = triangle[i][j] + f(i+1, j+1, triangle, triangleSize, dp);
+    return dp[i][j] = fmin(down, diagonal);
+}
+int minimumTotal(int** triangle, int triangleSize, int* triangleColSize) {
+   int** dp = (int**)malloc(triangleSize * sizeof(int*));
+    for (int i = 0; i < triangleSize; i++) {
+        dp[i] = (int*)malloc(triangleColSize[i] * sizeof(int));
+        for (int j = 0; j < triangleColSize[i]; j++) {
+            dp[i][j] = -1; // Initialize dp with -1
+        }
+    }
+    
+    return f(0, 0, triangle, triangleSize, dp);
+
+    
+}
